@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ config.get('SITE_NAME', 'AI News Site') }} - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-top-bar">
+            <div class="current-date">{{ current_date_formatted }}</div>
+            <div class="header-top-links">
+                {# Add links like About, Contact, etc. here later if needed #}
+                {% if current_user and current_user.is_authenticated %}
+                     <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a> | <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Admin Login</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="container header-main">
+            <div class="site-branding">
+                <h1><a href="{{ url_for('index') }}">{{ config.get('SITE_NAME', 'AI News Site') }}</a></h1>
+                <p class="site-description">Your source for AI-powered global news.</p> {# Example tagline #}
+            </div>
+            {# Placeholder for a search bar if desired later #}
+            {# <div class="header-search">Search...</div> #}
+        </div>
+        <nav class="main-navigation">
+            <div class="container">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    {# Example additional nav links - can be dynamic later #}
+                    {# <li><a href="#">World</a></li> #}
+                    {# <li><a href="#">Tech</a></li> #}
+                    {# <li><a href="#">Business</a></li> #}
+                    {# <li><a href="#">Science</a></li> #}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container main-content-area">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {{ now.year }} {{ config.get('SITE_NAME', 'AI News Site') }}. All Rights Reserved. Powered by AI.</p>
+            {# Add more footer links here if needed #}
+            {# <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p> #}
+        </div>
+    </footer>
+
+    {% block scripts_extra %}{% endblock %}
+</body>
+</html>

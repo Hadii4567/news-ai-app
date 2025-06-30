@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ article.meta_title or article.title }}{% endblock %}
+
+{% block head_extra %}
+    <meta name="description" content="{{ article.meta_description or article.content[:160] | striptags | truncate(160) }}">
+    <meta name="keywords" content="{{ article.meta_keywords or '' }}">
+{% endblock %}
+
+{% block content %}
+    <div class="article-page-container">
+        <article class="post single-article">
+            <header class="article-header">
+                <h1 class="article-title">{{ article.title }}</h1>
+                <p class="article-meta">
+                    Published on {{ article.pub_date.strftime('%B %d, %Y %H:%M') }}
+                    {% if article.author %}
+                        by <span class="author-name">{{ article.author.username }}</span>
+                    {% elif article.author_id is none %} {# Assuming author_id is None for purely AI generated with no assigned user #}
+                        by <span class="author-name">AI News Staff</span>
+                    {% endif %}
+                </p>
+            </header>
+
+            {% if article.featured_image %}
+            <div class="article-featured-image">
+                <img src="{{ url_for('static', filename='uploads/' + article.featured_image) }}" alt="{{ article.title }}">
+            </div>
+            {% endif %}
+
+            <div class="article-content">
+                {{ article.content | safe }} {# Use |safe if content contains HTML #}
+            </div>
+
+            {# Optional: Add tags or categories here if implemented later #}
+            {#
+            <footer class="article-footer">
+                <p>Tags: <a href="#">tag1</a>, <a href="#">tag2</a></p>
+            </footer>
+            #}
+        </article>
+
+        <div class="article-navigation">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">&laquo; Back to Home</a>
+            {# Optional: Add next/previous article links here if desired later #}
+        </div>
+
+    </div>
+    {# Placeholder for ad space - Admin can manage this #}
+    {% if config.get('AD_SPACE_ARTICLE_BOTTOM') %}
+    <div class="ad-space" style="margin-top: 20px; padding: 10px; border: 1px dashed #ccc; text-align: center;">
+        <h4>Advertisement</h4>
+        {{ config.get('AD_SPACE_ARTICLE_BOTTOM') | safe }}
+    </div>
+    {% endif %}
+{% endblock %}

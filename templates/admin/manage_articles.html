@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}Manage Articles{% endblock %}
+
+{% block content %}
+<div class="admin-section">
+    <h2>Manage Articles</h2>
+    <p><a href="{{ url_for('admin_create_article') }}" class="btn">Create New Article</a></p>
+
+    {% if articles %}
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Title</th>
+                <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Slug</th>
+                <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Published Date</th>
+                <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td style="border-bottom: 1px solid #ddd; padding: 8px;"><a href="{{ url_for('view_article', article_slug=article.slug) }}" target="_blank">{{ article.title }}</a></td>
+                <td style="border-bottom: 1px solid #ddd; padding: 8px;">{{ article.slug }}</td>
+                <td style="border-bottom: 1px solid #ddd; padding: 8px;">{{ article.pub_date.strftime('%Y-%m-%d %H:%M') if article.pub_date else 'N/A' }}</td>
+                <td style="border-bottom: 1px solid #ddd; padding: 8px;">
+                    <a href="{{ url_for('admin_edit_article', article_id=article.id) }}" class="btn" style="margin-right: 5px;">Edit</a>
+                    <form action="{{ url_for('admin_delete_article', article_id=article.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this article?');">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# Pagination Links #}
+    <div class="pagination" style="margin-top:20px;">
+        {% if pagination.has_prev %}
+            <a href="{{ url_for('admin_manage_articles', page=pagination.prev_num) }}" class="btn">&laquo; Previous</a>
+        {% endif %}
+        Page {{ pagination.page }} of {{ pagination.pages }}.
+        {% if pagination.has_next %}
+            <a href="{{ url_for('admin_manage_articles', page=pagination.next_num) }}" class="btn">Next &raquo;</a>
+        {% endif %}
+    </div>
+
+    {% else %}
+    <p>No articles found. <a href="{{ url_for('admin_create_article') }}">Create one now!</a></p>
+    {% endif %}
+</div>
+{% endblock %}

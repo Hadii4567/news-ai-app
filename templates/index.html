@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="homepage-content">
+        {% if articles %}
+            {# Featured Article - The latest one #}
+            {% set featured_article = articles[0] %}
+            <section class="featured-article-section">
+                <h2><a href="{{ url_for('view_article', article_slug=featured_article.slug) }}">{{ featured_article.title }}</a></h2>
+                <article class="post featured-post">
+                    {% if featured_article.featured_image %}
+                    <div class="post-thumbnail">
+                        <a href="{{ url_for('view_article', article_slug=featured_article.slug) }}">
+                            <img src="{{ url_for('static', filename='uploads/' + featured_article.featured_image) }}" alt="{{ featured_article.title }}">
+                        </a>
+                    </div>
+                    {% endif %}
+                    <div class="post-content">
+                        <h3 class="post-title-feature"><a href="{{ url_for('view_article', article_slug=featured_article.slug) }}">{{ featured_article.title }}</a></h3>
+                        <p class="article-meta">
+                            Published on {{ featured_article.pub_date.strftime('%B %d, %Y %H:%M') }}
+                            {% if featured_article.author %} by {{ featured_article.author.username }}{% endif %}
+                        </p>
+                        <p class="post-excerpt">{{ featured_article.content | striptags | truncate(280) }}</p>
+                        <a href="{{ url_for('view_article', article_slug=featured_article.slug) }}" class="btn btn-primary">Read More &raquo;</a>
+                    </div>
+                </article>
+            </section>
+
+            {# Ad space placeholder after featured article #}
+            {% if config.get('AD_SPACE_HOME_BELOW_FEATURED') %}
+            <div class="ad-space ad-space-home-below-featured">
+                <h4>Advertisement</h4>
+                {{ config.get('AD_SPACE_HOME_BELOW_FEATURED') | safe }}
+            </div>
+            {% endif %}
+
+            {% if articles|length > 1 %}
+                <section class="recent-articles-section">
+                    <h2 class="section-title">More News</h2>
+                    <div class="articles-grid">
+                        {% for article in articles[1:] %} {# Loop through the rest of the articles #}
+                            <article class="post article-card">
+                                {% if article.featured_image %}
+                                <div class="post-thumbnail">
+                                    <a href="{{ url_for('view_article', article_slug=article.slug) }}">
+                                        <img src="{{ url_for('static', filename='uploads/' + article.featured_image) }}" alt="{{ article.title }}">
+                                    </a>
+                                </div>
+                                {% endif %}
+                                <div class="post-content">
+                                    <h3 class="post-title"><a href="{{ url_for('view_article', article_slug=article.slug) }}">{{ article.title }}</a></h3>
+                                    <p class="article-meta">
+                                        {{ article.pub_date.strftime('%B %d, %Y') }}
+                                    </p>
+                                    <p class="post-excerpt">{{ article.content | striptags | truncate(120) }}</p>
+                                    <a href="{{ url_for('view_article', article_slug=article.slug) }}" class="read-more-link">Read More &raquo;</a>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                </section>
+            {% endif %}
+
+            {# Pagination Links #}
+            {% if pagination and (pagination.has_prev or pagination.has_next) %}
+            <nav class="pagination">
+                {% if pagination.has_prev %}
+                    <a href="{{ url_for('index', page=pagination.prev_num) }}" class="btn">&laquo; Newer Posts</a>
+                {% endif %}
+                Page {{ pagination.page }} of {{ pagination.pages }}.
+                {% if pagination.has_next %}
+                    <a href="{{ url_for('index', page=pagination.next_num) }}" class="btn">Older Posts &raquo;</a>
+                {% endif %}
+            </nav>
+            {% endif %}
+
+        {% else %}
+            <p>No articles yet. Check back soon!</p>
+        {% endif %}
+    </div>
+{% endblock %}

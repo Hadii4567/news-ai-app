@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="admin-section">
+    <h2>Admin Dashboard</h2>
+    <p>Welcome, {{ current_user.username }}!</p>
+
+    <h3>Site Management</h3>
+    <ul>
+        <li><a href="{{ url_for('admin_manage_articles') }}">Manage Articles</a> (<a href="{{ url_for('admin_create_article') }}">Create New</a>)</li>
+        <li><a href="{{ url_for('admin_site_settings') }}">Site Settings</a></li>
+        <li><a href="{{ url_for('admin_ad_settings') }}">Ad Management</a></li>
+        <li><a href="{{ url_for('admin_seo_settings') }}">Global SEO Settings</a></li>
+    </ul>
+
+    <h3>Content Generation</h3>
+    <ul>
+        <li><a href="{{ url_for('admin_run_content_generation') }}">Manually Generate AI Article (Placeholder)</a></li>
+        <li>View generation logs (TODO)</li>
+    </ul>
+
+    <hr>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+</div>
+
+<div class="admin-section">
+    <h3>Current Articles</h3>
+    {% if articles %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Published Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td><a href="{{ url_for('view_article', article_slug=article.slug) }}" target="_blank">{{ article.title }}</a></td>
+                <td>{{ article.pub_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    <a href="{{ url_for('admin_edit_article', article_id=article.id) }}" class="btn">Edit</a>
+                    <form action="{{ url_for('admin_delete_article', article_id=article.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this article?');">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No articles found.</p>
+    {% endif %}
+</div>
+{% endblock %}

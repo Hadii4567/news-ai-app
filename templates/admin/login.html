@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% block content %}
+<div class="admin-section">
+    <h2>Admin Login</h2>
+    <form method="POST" action="{{ url_for('login') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.username.label }}
+            {{ form.username(class="form-control") }}
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <span class="text-danger">{{ error }}</span><br>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
+            {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    <span class="text-danger">{{ error }}</span><br>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
