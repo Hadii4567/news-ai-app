@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>{{ host_url }}{{ url_for('index') }}</loc>
+        <lastmod>{{ now.strftime('%Y-%m-%d') }}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    {% for article in articles %}
+    <url>
+        <loc>{{ host_url }}{{ url_for('view_article', article_slug=article.slug) }}</loc>
+        {% if article.pub_date %}
+        <lastmod>{{ article.pub_date.strftime('%Y-%m-%d') }}</lastmod>
+        {% endif %}
+        <changefreq>weekly</changefreq> {# Or monthly, depending on update frequency #}
+        <priority>0.8</priority>
+    </url>
+    {% endfor %}
+    {# Add other static pages here if needed #}
+    {#
+    <url>
+        <loc>{{ host_url }}{{ url_for('about_page') }}</loc>
+        <lastmod>YYYY-MM-DD</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    #}
+</urlset>

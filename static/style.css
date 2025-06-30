@@ -1,0 +1,723 @@
+/* Global Resets and Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Import Fonts - Merriweather and Roboto */
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/merriweather/v30/u-440qyriQwlOrhSvowK_l5-fCZMdeX3rg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/merriweather/v30/u-4n0qyriQwlOrhSvowK_l52xwNZWMf6hPvhPQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 15px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    color: #222;
+    line-height: 1.3;
+    margin-bottom: 0.75em;
+}
+
+/* Header Styles */
+.site-header {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.header-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.85em;
+    color: #555;
+    border-bottom: 1px solid #eee;
+}
+
+.header-top-bar a {
+    color: #555;
+    text-decoration: none;
+}
+.header-top-bar a:hover {
+    color: #007bff;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.site-branding h1 {
+    margin: 0;
+    font-size: 2.5em; /* Larger for site title */
+}
+.site-branding h1 a {
+    color: #222;
+    text-decoration: none;
+}
+.site-branding h1 a:hover {
+    color: #007bff;
+}
+.site-description {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.main-navigation {
+    background: #333;
+    color: #fff;
+}
+
+.main-navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.main-navigation ul li {
+    position: relative; /* For potential dropdowns */
+}
+
+.main-navigation ul li a {
+    display: block;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.main-navigation ul li a:hover,
+.main-navigation ul li.active a { /* 'active' class can be added by Flask if needed */
+    background: #007bff;
+    color: #fff;
+}
+
+/* Main Content Area */
+.main-content-area {
+    padding: 20px 0; /* Removed side padding from container, add here if needed */
+    background: #fff; /* White background for content */
+    min-height: 60vh; /* Ensure footer is pushed down somewhat */
+}
+
+/* Footer Styles */
+footer.site-footer { /* Changed from just 'footer' to 'footer.site-footer' for specificity */
+    background: #222;
+    color: #aaa;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 30px;
+}
+footer.site-footer p {
+    margin: 0;
+}
+footer.site-footer a {
+    color: #007bff;
+}
+
+/* Article Styling (Basic - will be expanded for index and article page) */
+article.post { /* This is a general class, might be too broad now. Specifics below. */
+    background: #fff; /* Default background for article content container */
+    /* padding: 20px; */ /* Moved to more specific contexts */
+    margin-bottom: 20px;
+    /* border: 1px solid #e5e5e5; */ /* Moved to specific contexts like cards */
+    /* box-shadow: 0 1px 3px rgba(0,0,0,0.05); */ /* Moved to specific contexts */
+}
+
+article.post h2 a, article.post h3 a { /* For index page titles in older structure */
+    text-decoration: none;
+    color: #333;
+}
+article.post h2 a:hover, article.post h3 a:hover {
+    color: #007bff;
+}
+
+.article-meta { /* General class for metadata */
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    background: #007bff;
+    color: #fff !important; /* Important to override generic 'a' color */
+    padding: 10px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease-in-out;
+}
+.btn:hover {
+    background: #0056b3;
+    color: #fff !important;
+    text-decoration: none;
+}
+.btn-primary { /* Added for consistency if needed */
+    background: #007bff;
+}
+.btn-primary:hover {
+    background: #0056b3;
+}
+.btn-danger {
+    background: #dc3545;
+}
+.btn-danger:hover {
+    background: #c82333;
+}
+.btn-secondary {
+    background: #6c757d;
+}
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+/* Forms (Basic Styling for Admin - can be refined if admin theme is a goal) */
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group input[type="url"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group input[type="datetime-local"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif; /* Ensure form elements use the font */
+    font-size: 1em;
+}
+.form-group textarea {
+    min-height: 120px;
+    line-height: 1.5;
+}
+.form-control-file { /* For file inputs */
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+
+/* Alerts */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+
+/* Admin Panel Specific - Keep it functional */
+.admin-section {
+    background: #fff;
+    padding: 20px;
+    margin-top: 10px; /* Reduced from 20px */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.admin-section h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+.admin-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.admin-section th, .admin-section td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+.admin-section th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+}
+
+/* Pagination */
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+.pagination a, .pagination span { /* span for current page or disabled */
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 4px;
+    line-height: 1.4; /* Ensure text aligns well */
+}
+.pagination a:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+.pagination .current-page, /* Class for current page if styled differently via Flask */
+.pagination strong { /* Common for current page in some paginators */
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    font-weight: bold;
+}
+.pagination .disabled,
+.pagination span.disabled { /* For disabled prev/next links */
+    color: #aaa;
+    pointer-events: none;
+    border-color: #ddd;
+    background-color: #f9f9f9;
+}
+
+
+/* Ad Space Placeholders */
+.ad-space {
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px dashed #ccc;
+    text-align: center;
+    background: #f0f0f0; /* Slightly different from page bg */
+    font-size: 0.9em;
+    color: #777;
+}
+.ad-space h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #555;
+}
+
+/* Basic Responsive Adjustments */
+@media (max-width: 768px) {
+    .site-branding h1 {
+        font-size: 2em;
+    }
+    .header-main { /* Keep header-main flex row for a bit longer */
+        align-items: flex-start;
+    }
+    .header-top-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+    .header-top-bar .current-date, .header-top-bar .header-top-links {
+        margin-bottom: 5px;
+    }
+    .main-navigation ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-navigation ul li {
+        width: 100%; /* Make nav items full width on mobile */
+    }
+    .main-navigation ul li a {
+        padding: 12px 15px;
+        border-bottom: 1px solid #444; /* Separator for mobile nav */
+        text-align: center;
+    }
+    .main-navigation ul li:last-child a {
+        border-bottom: none;
+    }
+
+    .container {
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 15px;
+    }
+    .site-branding h1 {
+        font-size: 1.8em;
+    }
+    .header-main {
+         flex-direction: column; /* Stack branding and search on smallest screens */
+         align-items: center;
+    }
+    .site-branding {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .btn {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+    .pagination a, .pagination span {
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
+}
+
+/* Homepage Specific Styles */
+.featured-article-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.featured-article-section > h2 { /* This is the "Featured Article" title, if we had one above the post */
+    display: none; /* Visually hide, but keep for semantics if desired. We are using the post's own title. */
+}
+
+.featured-post { /* This is an <article class="post featured-post"> */
+    display: flex;
+    flex-direction: column; /* Stack image on top on small screens by default */
+    /* background: #fff; */ /* Already on .main-content-area */
+    padding: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.featured-post .post-thumbnail {
+    margin-bottom: 15px;
+}
+
+.featured-post .post-thumbnail img {
+    width: 100%;
+    height: auto;
+    max-height: 450px; /* Limit height of featured image */
+    object-fit: cover;
+    border-radius: 5px; /* Rounded corners for featured image */
+}
+
+.featured-post .post-content { /* Text content beside or below image */
+    flex: 1;
+}
+
+.featured-post .post-title-feature a { /* The h3 title for featured post */
+    font-size: 2.2em;
+    color: #222;
+    text-decoration: none;
+    line-height: 1.2;
+    font-family: 'Merriweather', serif; /* Ensure it uses the heading font */
+}
+.featured-post .post-title-feature a:hover {
+    color: #007bff;
+}
+
+.featured-post .article-meta { /* Meta for featured post */
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.featured-post .post-excerpt {
+    font-size: 1.1em; /* Slightly larger excerpt for featured */
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.section-title {
+    font-size: 1.8em;
+    margin-top: 30px; /* Space above "More News" */
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 25px;
+}
+
+.article-card { /* This is an <article class="post article-card"> */
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.article-card .post-thumbnail img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; /* Crop image to fit */
+}
+
+.article-card .post-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.article-card .post-title { /* This is the h3 title for grid articles */
+    font-size: 1.25em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    font-family: 'Merriweather', serif;
+}
+.article-card .post-title a {
+    color: #333;
+    text-decoration: none;
+}
+.article-card .post-title a:hover {
+    color: #007bff;
+}
+
+.article-card .article-meta { /* Meta for grid articles */
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}
+
+.article-card .post-excerpt {
+    font-size: 0.9em;
+    color: #555;
+    flex-grow: 1;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.article-card .read-more-link {
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+    margin-top: auto;
+}
+.article-card .read-more-link:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* Responsive adjustments for homepage elements */
+@media (min-width: 769px) {
+    .featured-post {
+        flex-direction: row;
+        gap: 25px;
+    }
+    .featured-post .post-thumbnail {
+        flex: 0 0 45%;
+        margin-bottom: 0;
+    }
+    .featured-post .post-content { /* Text content takes remaining space */
+        flex: 1;
+    }
+}
+
+/* Ensure grid columns are reasonable on smaller tablet sizes before stacking */
+@media (max-width: 600px) {
+    .articles-grid {
+        grid-template-columns: 1fr; /* Stack article cards */
+    }
+}
+
+/* Single Article Page Styles */
+.article-page-container {
+    max-width: 800px; /* Optimal reading width for single column */
+    margin: 0 auto; /* Center the content column */
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border-radius: 5px;
+}
+
+.single-article .article-header {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.single-article .article-title { /* This is H1 on article page */
+    font-size: 2.8em;
+    line-height: 1.25;
+    color: #111; /* Darker for main title */
+    margin-bottom: 10px; /* Space between title and meta */
+}
+
+.single-article .article-meta {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.single-article .article-meta .author-name {
+    font-weight: bold;
+    color: #444;
+}
+
+.article-featured-image {
+    margin-bottom: 25px;
+}
+.article-featured-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.article-content {
+    font-size: 1.1em; /* Slightly larger for readability */
+    line-height: 1.8;
+    color: #333;
+}
+
+.article-content p {
+    margin-bottom: 1.5em;
+}
+
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+    margin-top: 1.8em;
+    margin-bottom: 0.8em;
+    line-height: 1.4;
+    color: #222;
+}
+.article-content h2 { font-size: 1.7em; }
+.article-content h3 { font-size: 1.5em; }
+.article-content h4 { font-size: 1.3em; }
+
+.article-content ul,
+.article-content ol {
+    margin-bottom: 1.5em;
+    padding-left: 2em; /* Indent lists */
+}
+.article-content li {
+    margin-bottom: 0.5em;
+}
+
+.article-content blockquote {
+    border-left: 4px solid #007bff;
+    padding-left: 1.5em;
+    margin: 1.5em 0;
+    font-style: italic;
+    color: #555;
+}
+
+.article-content img { /* Images within the content */
+    max-width: 100%;
+    height: auto;
+    margin: 1em auto; /* Center images if they are block elements */
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.article-content a {
+    color: #007bff;
+    text-decoration: underline; /* Explicitly underline links in content */
+}
+.article-content a:hover {
+    color: #0056b3;
+}
+
+.article-navigation {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center; /* Center the back button for now */
+}

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}Site Settings{% endblock %}
+
+{% block content %}
+<div class="admin-section">
+    <h2>Site Settings</h2>
+    <form method="POST" action="{{ url_for('admin_site_settings') }}" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.site_name.label }}
+            {{ form.site_name(class="form-control", size=50) }}
+            {% if form.site_name.errors %}{% for error in form.site_name.errors %}<span class="text-danger">{{ error }}</span><br>{% endfor %}{% endif %}
+        </div>
+
+        {# Placeholder for Logo Upload - to be implemented fully later #}
+        {#
+        <div class="form-group">
+            {{ form.site_logo.label }}
+            {% if config.SITE_LOGO %}
+                <p>Current logo: <img src="{{ url_for('static', filename='uploads/' + config.SITE_LOGO) }}" alt="Current Logo" style="max-width: 150px; background: #eee; padding: 5px;"></p>
+                <p>{{ form.delete_logo.label }} {{ form.delete_logo() }} </p>
+            {% endif %}
+            {{ form.site_logo(class="form-control-file") }}
+            {% if form.site_logo.errors %}{% for error in form.site_logo.errors %}<span class="text-danger">{{ error }}</span><br>{% endfor %}{% endif %}
+        </div>
+        #}
+
+        <div class="form-group">
+            {{ form.submit(class="btn") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

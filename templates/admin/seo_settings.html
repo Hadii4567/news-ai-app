@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}Global SEO Settings{% endblock %}
+
+{% block content %}
+<div class="admin-section">
+    <h2>Global SEO Settings</h2>
+    <p>These settings apply site-wide or act as defaults. Article-specific SEO can be managed when editing each article.</p>
+
+    {# Example: Form for Google Analytics ID #}
+    {#
+    <form method="POST" action="{{ url_for('admin_seo_settings') }}">
+        {{ form.hidden_tag() }} {# If using Flask-WTF for a form here #}
+        <div class="form-group">
+            <label for="google_analytics_id">Google Analytics ID (e.g., UA-XXXXX-Y)</label>
+            <input type="text" name="google_analytics_id" id="google_analytics_id" class="form-control" value="{{ config.get('GOOGLE_ANALYTICS_ID', '') }}">
+        </div>
+
+        <div class="form-group">
+            <label for="default_meta_description">Default Meta Description</label>
+            <textarea name="default_meta_description" id="default_meta_description" class="form-control" rows="3">{{ config.get('DEFAULT_META_DESCRIPTION', '') }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="default_meta_keywords">Default Meta Keywords (comma-separated)</label>
+            <input type="text" name="default_meta_keywords" id="default_meta_keywords" class="form-control" value="{{ config.get('DEFAULT_META_KEYWORDS', '') }}">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save SEO Settings" class="btn">
+        </div>
+    </form>
+    #}
+    <p><strong>TODO:</strong> This section will be expanded with more global SEO options, such as:</p>
+    <ul>
+        <li>Google Analytics / Tag Manager Integration ID</li>
+        <li>Default meta descriptions and keywords (if not set per article)</li>
+        <li>Social media sharing defaults (e.g., Twitter handle)</li>
+        <li>Sitemap generation options</li>
+        <li>Robots.txt content management</li>
+    </ul>
+
+    <p>For now, most SEO settings are managed on a per-article basis during article creation/editing.</p>
+
+    <hr>
+    <h4>Sitemap</h4>
+    <p>A sitemap helps search engines find your content. The sitemap is dynamically generated.</p>
+    <p><a href="{{ url_for('sitemap_xml') }}" target="_blank" class="btn">View sitemap.xml</a></p>
+    <p>You should submit this sitemap URL to search engine consoles (e.g., Google Search Console, Bing Webmaster Tools).</p>
+
+    <hr>
+    <h4>robots.txt</h4>
+    <p>A `robots.txt` file tells search engine crawlers which pages or files the crawler can or can't request from your site. A basic one has been provided.</p>
+    <p><a href="{{ url_for('static', filename='robots.txt') }}" target="_blank" class="btn">View robots.txt</a></p>
+    <p>If you need to customize it, you can replace the `static/robots.txt` file.</p>
+
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+# robots.txt for AI News Site
+User-agent: *
+Allow: /
+
+# Allow all content for all respectful crawlers.
+# You can disallow specific paths if needed, for example:
+# Disallow: /admin/
+# Disallow: /tmp/
+
+# Sitemap location (ensure this matches your domain and sitemap path)
+Sitemap: /sitemap.xml

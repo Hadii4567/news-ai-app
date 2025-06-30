@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}Ad Management{% endblock %}
+
+{% block content %}
+<div class="admin-section">
+    <h2>Ad Management</h2>
+    <p>You can paste HTML/JavaScript ad code (e.g., from Google AdSense or other ad networks) into these fields. The content will be rendered directly on the site where specified.</p>
+    <form method="POST" action="{{ url_for('admin_ad_settings') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.ad_space_header.label }} (e.g., in the site header or below navigation)
+            {{ form.ad_space_header(class="form-control", rows=5) }}
+            {% if form.ad_space_header.errors %}{% for error in form.ad_space_header.errors %}<span class="text-danger">{{ error }}</span><br>{% endfor %}{% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.ad_space_sidebar.label }} (If your layout has a sidebar)
+            {{ form.ad_space_sidebar(class="form-control", rows=5) }}
+            {% if form.ad_space_sidebar.errors %}{% for error in form.ad_space_sidebar.errors %}<span class="text-danger">{{ error }}</span><br>{% endfor %}{% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.ad_space_article_bottom.label }} (Displayed at the end of each article)
+            {{ form.ad_space_article_bottom(class="form-control", rows=5) }}
+            {% if form.ad_space_article_bottom.errors %}{% for error in form.ad_space_article_bottom.errors %}<span class="text-danger">{{ error }}</span><br>{% endfor %}{% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="btn") }}
+        </div>
+    </form>
+
+    <hr>
+    <h4>Preview Locations (Example)</h4>
+    <p>To use these ads in your templates, you can access them via the `config` object. For example:</p>
+    <pre><code>
+    {# In layout.html or other templates #}
+    {% if config.get('AD_SPACE_HEADER') %}
+    &lt;div class="ad-container-header"&gt;
+        {{ config.get('AD_SPACE_HEADER') | safe }}
+    &lt;/div&gt;
+    {% endif %}
+
+    {# In article.html #}
+    {% if config.get('AD_SPACE_ARTICLE_BOTTOM') %}
+    &lt;div class="ad-container-article-bottom" style="margin-top: 20px; text-align: center;"&gt;
+        {{ config.get('AD_SPACE_ARTICLE_BOTTOM') | safe }}
+    &lt;/div&gt;
+    {% endif %}
+    </code></pre>
+    <p>Remember to use the `| safe` filter if your ad code contains HTML/JavaScript that needs to be rendered as such.</p>
+</div>
+{% endblock %}
